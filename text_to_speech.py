@@ -1,5 +1,3 @@
-# text_to_speech.py
-print("✅ CI/CD pipeline test triggered!")
 
 from gtts import gTTS
 import os
