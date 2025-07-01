@@ -1,11 +1,12 @@
-name: Python CI
+name: Python CI + CD to EC2
 
 on:
   push:
     branches: [ "main" ]
 
 jobs:
-  build:
+  ci:
+    name: Run CI (Local Test)
     runs-on: ubuntu-latest
 
     steps:
@@ -22,6 +23,25 @@ jobs:
         python -m pip install --upgrade pip
         pip install -r requirements.txt
 
-    - name: Run Text to Speech Script
+    - name: Run Text to Speech Script (Local CI)
       run: |
         python text_to_speech.py
+
+  cd:
+    name: Deploy to EC2
+    needs: ci
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Deploy over SSH to EC2
+      uses: appleboy/ssh-action@v1.0.0
+      with:
+        host: ${{ secrets.EC2_HOST }}
+        username: ${{ secrets.EC2_USER }}
+        key: ${{ secrets.EC2_SSH_KEY }}
+        script: |
+          echo "✅ Connected to EC2"
+          cd ~/text_to_speech
+          git pull origin main
+          echo "🚀 Running Text to Speech script"
+          python3 text_to_speech.py
