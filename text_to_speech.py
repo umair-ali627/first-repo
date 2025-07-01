@@ -1,5 +1,9 @@
 print("✅ CI/CD pipeline test triggered!")
-from gtts import gTTS import os os.makedirs("Text To Speech", exist_ok=True)
+
+from gtts import gTTS
+import os
+
+os.makedirs("Text To Speech", exist_ok=True)
 
 def text_to_speech(
     text,
