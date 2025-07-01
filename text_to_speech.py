@@ -99,7 +99,7 @@ if __name__ == "__main__":
     # text_to_speech(
     #     "Hello! How are you today?",
     #     lang="en",
-text_to_speech.py    #     tld="co.uk",
+#text_to_speech.py    #     tld="co.uk",
     #     output_file="british_accent.mp3",
     # )
 
